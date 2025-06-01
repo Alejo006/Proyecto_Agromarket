@@ -1,0 +1,123 @@
+
+    body {
+      background-color: #e6f4ea !important;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    main {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .contenedor_todo {
+      width: 100%;
+      max-width: 850px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .caja_trasera {
+      width: 100%;
+      padding: 20px;
+      display: flex;
+      justify-content: space-around;
+      background-color: rgba(0, 128, 0, 0.1);
+      border: 2px solid #0f5720;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(15, 87, 32, 0.2);
+      color: #0f5720;
+      text-align: center;
+      flex-wrap: wrap;
+    }
+
+    .caja_trasera h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .caja_trasera p {
+      margin: 10px 0;
+    }
+
+    .caja_trasera button {
+      margin-top: 10px;
+      padding: 10px 40px;
+      background: transparent;
+      border: 2px solid #0f5720;
+      color: #0f5720;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      border-radius: 5px;
+    }
+
+    .caja_trasera button:hover {
+      background-color: rgba(15, 87, 32, 0.1);
+    }
+
+    .contenedor_login_y_registro {
+      width: 200%;
+      display: flex;
+      transition: transform 0.6s ease;
+      transform: translateX(0%);
+      position: relative;
+    }
+
+    .formulario_login,
+    .formulario_regis {
+      width: 50%;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 128, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: opacity 0.5s ease;
+    }
+
+    .formulario_login h2,
+    .formulario_regis h2 {
+      color: #0f5720;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .formulario_login input,
+    .formulario_regis input,
+    .formulario_regis select,
+    .formulario_login button,
+    .formulario_regis button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    input,
+    select {
+      border: 1px solid #0f5720;
+      background-color: #f9f9f9;
+    }
+
+    button {
+      background-color: #0f5720;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0c4518;
+    }
+
+    .alert-danger {
+      font-size: 14px;
+      padding: 10px;
+    }

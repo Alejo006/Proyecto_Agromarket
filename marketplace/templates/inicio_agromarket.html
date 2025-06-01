@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>AgroMarket</title> <!-- Cambié el título a algo más agrícola -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #e6f2e6; /* Fondo verde clarito */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+    }
+
+    .container {
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 100, 0, 0.2); /* Sombra verde */
+        max-width: 500px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .container:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 6px;
+        background: linear-gradient(to right, #4CAF50, #8BC34A, #388E3C); /* Verde degradado */
+    }
+
+    .container:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 6px;
+        background: linear-gradient(to right, #388E3C, #8BC34A, #4CAF50); /* Verde degradado invertido */
+    }
+
+    h1 {
+        color: #2e7d32; /* Verde más fuerte */
+        margin-bottom: 1rem;
+    }
+
+    p {
+        color: #4d4d4d;
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .btn {
+        display: inline-block;
+        background-color: #4CAF50; /* Verde botón */
+        color: white;
+        padding: 0.8rem 2rem;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #388E3C; /* Verde más oscuro al pasar */
+        transform: scale(1.1);
+    }
+
+    .image-placeholder {
+        margin-top: 2rem;
+        height: 200px;
+        background-color: #d0e6d0;
+        border: 2px dashed #a5d6a7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        color: #666;
+        font-size: 1rem;
+    }
+
+    .imagen {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    .imagen img {
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 100, 0, 0.2);
+    }
+</style>
+<body>
+    <div class="container">
+        <h1>Bienvenidos a AgroMarket 🌿</h1>
+        <p>Conectando agricultores y consumidores de forma directa.</p>
+        <a href="{% url 'login_registro_agromarket' %}" class="btn">Entrar al sistema</a>
+        <div class="imagen">
+            <img src="{% static 'img/agromarket.png' %}" alt="Presentación AgroMarket">
+        </div>
+    </div>
+</body>
+</html>

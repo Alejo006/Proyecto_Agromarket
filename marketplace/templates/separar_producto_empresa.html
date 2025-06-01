@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Información del Vendedor - {{ producto.nombre }}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #e9f5ee;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 30px 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h2 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        .intro {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .info p {
+            margin: 10px 0;
+            font-size: 1em;
+        }
+
+        .info strong {
+            color: #333;
+        }
+
+        .btn-volver {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 20px;
+            background-color: #2e7d32;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-volver:hover {
+            background-color: #256a28;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>¿Te interesa este producto?</h2>
+        <p class="intro">
+            ¡Perfecto! Aquí tienes los datos de contacto del vendedor para que puedas comunicarte y coordinar la compra de <strong>{{ producto.nombre }}</strong>. 
+        </p>
+
+        <div class="info">
+            <p><strong>👤 Nombre:</strong> {{ vendedor.nombre }}</p>
+            <p><strong>📧 Correo electrónico:</strong> {{ vendedor.correo }}</p>
+            <p><strong>📞 Teléfono:</strong> {{ vendedor.telefono }}</p>
+            <p><strong>📍 Dirección:</strong> {{ vendedor.direccion }}</p>
+            <p><strong>👥 Tipo de usuario:</strong> {{ vendedor.tipo_usuario }}</p>
+        </div>
+
+    <a href="{% url 'panel_empresa' %}" class="btn-volver">Volver al listado</a>
+</body>
+</html>

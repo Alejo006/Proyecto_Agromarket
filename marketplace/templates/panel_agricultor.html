@@ -1,0 +1,438 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>AgroMarket - Panel Agricultor</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f8f4;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #2e7d32;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .menu-toggle {
+            background-color: #1b5e20;
+            border: none;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .menu-content {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .menu-content a {
+            color: white;
+            text-decoration: none;
+            padding: 8px;
+            border-radius: 5px;
+            background-color: #388e3c;
+            transition: background-color 0.2s;
+        }
+
+        .menu-content a:hover {
+            background-color: #66bb6a;
+        }
+
+        .menu-content .boton-especial {
+            background-color: #ffb74d;
+            color: #263238;
+            font-weight: bold;
+        }
+
+        .menu-content .boton-especial:hover {
+            background-color: #ffa726;
+        }
+
+        .content {
+            margin-left: 270px;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #2e7d32;
+        }
+
+        section {
+            margin-top: 40px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        section h2 {
+            color: #1b5e20;
+        }
+
+        .producto {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-left: 4px solid #81c784;
+            background-color: #f9fdf9;
+            border-radius: 5px;
+        }
+
+        /* Estilos básicos para formularios de edición cargados dinámicamente */
+        .producto form {
+            display: grid;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .producto input[type="text"],
+        .producto input[type="number"],
+        .producto textarea,
+        .producto select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-family: inherit;
+        }
+
+        .producto button[type="submit"] {
+            background-color: #2e7d32;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .producto button[type="submit"]:hover {
+            background-color: #1b5e20;
+        }
+
+        .upload-area {
+            border: 2px dashed #7cbf7c;
+            border-radius: 10px;
+            background: #e9f4e9;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>AgroMarket</h2>
+        <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
+        <div class="menu-content" id="menu">
+            <a href="#informacion">Información</a>
+            <a href="#empresas">Empresas</a>
+            <a href="#agricultores">Agricultores</a>
+            <a href="#publicar" class="boton-especial">📤 Publicar Productos</a>
+            <a href="#mios" class="boton-especial">📁 Ver Mis Productos</a>
+        </div>
+        <div>
+        <a href="{% url 'login_registro_agromarket' %}" class="cerrar-sesion-btn">Cerrar sesión</a>
+
+        <style>
+        .cerrar-sesion-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            background-color: #dc3545;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .cerrar-sesion-btn:hover {
+            background-color: #c82333;
+            transform: scale(1.05);
+        }
+        </style>
+
+        </div>
+    </div>
+
+    <div class="content">
+        <h1>Bienvenido a <strong>AgroMarket</strong>, tu marketplace de confianza</h1>
+
+        <section id="bienvenida-agricultor">
+            <h2>¡Nos alegra tenerte aquí, Agricultor!</h2>
+            <p>Comparte con el mundo lo mejor de tu cosecha. Aquí puedes publicar tus productos sin costo y llegar directamente a compradores y empresas que valoran tu trabajo.</p>
+            <p>Conviértete en protagonista del mercado agroalimentario y haz crecer tu presencia digital.</p>
+            <img src="{% static 'img/agricultor2.jpg' %}" alt="Bienvenida agricultor" style="max-width: 100%; border-radius: 10px; margin-top: 20px;">
+        </section>
+
+
+
+        <section id="informacion" style="display: none;">
+            <h2>Información del Agro</h2>
+            <div id="contenido-informacion">
+                <!-- Contenido dinámico de informacion2 aquí -->
+            </div>
+        </section>
+
+        <section id="empresas" style="display: none;">
+            <h2>Productos de Empresas</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+            {% for producto in productos_empresas %}
+                <div class="producto" style="flex: 1 1 300px; background: #ffffff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); transition: transform 0.2s;">
+                    <h3 style="color: #2e7d32; margin-bottom: 5px;">{{ producto.nombre }}</h3>
+                    <p><strong>Precio base:</strong> ${{ producto.precio }}</p>
+                    <p><strong>Descuento:</strong> {{ producto.descuento }}%</p>
+                    {% if producto.descuento > 0 %}
+                        <p><strong>Precio final:</strong> con {{ producto.descuento }}% de descuento sobre ${{ producto.precio }}</p>
+                    {% else %}
+                        <p><strong>Precio final:</strong> ${{ producto.precio }}</p>
+                    {% endif %}
+                    <p><strong>Unidad:</strong> {{ producto.unidad_medida }}</p>
+                    <p><strong>Stock:</strong> {{ producto.cantidad_disponible }}</p>
+                    <p><strong>Ubicación:</strong> {{ producto.ubicacion }}</p>
+                    <p><strong>Empresa:</strong> {{ producto.nombre_empresa }}</p>
+                    <p><strong>Categoría:</strong> {{ producto.categoria.nombre }}</p>
+                    <p><strong>Descripción:</strong><br>{{ producto.descripcion|truncatewords:20 }}</p>
+                    {% if producto.imagenes.all %}
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                            {% for imagen in producto.imagenes.all %}
+                                <img src="{{ imagen.imagen.url }}" alt="Imagen del producto"
+                                    width="120px" height="120px"
+                                    style="object-fit: cover; border-radius: 5px; border: 1px solid #ccc;" />
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>Este producto no tiene imágenes.</p>
+                    {% endif %}
+                    <div style="margin-top: 10px;">
+                        <a href="{% url 'separar_producto_agricultor' producto.id %}" class="btn" style="padding: 5px 10px; background-color: #2e7d32; color: white; border-radius: 5px; text-decoration: none;">Separar producto</a>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No hay productos disponibles por ahora.</p>
+            {% endfor %}
+            </div>
+        </section>
+
+        <section id="agricultores" style="display: none;">
+            <h2>Productos de Agricultores</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+            {% for producto in productos_agricultores %}
+                <div class="producto" style="flex: 1 1 300px; background: #ffffff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); transition: transform 0.2s;">
+                    <h3 style="color: #2e7d32; margin-bottom: 5px;">{{ producto.nombre }}</h3>
+                    <p><strong>Precio:</strong> ${{ producto.precio }}</p>
+                    <p><strong>Unidad:</strong> {{ producto.unidad_medida }}</p>
+                    <p><strong>Stock:</strong> {{ producto.cantidad_disponible }}</p>
+                    <p><strong>Ubicación:</strong> {{ producto.ubicacion }}</p>
+                    <p><strong>Agricultor:</strong> {{ producto.usuario.get_full_name }}</p>
+                    <p><strong>Categoría:</strong> {{ producto.categoria.nombre }}</p>
+                    <p><strong>Descripción:</strong><br>{{ producto.descripcion|truncatewords:20 }}</p>
+                    {% if producto.imagenes.all %}
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                            {% for imagen in producto.imagenes.all %}
+                                <img src="{{ imagen.imagen.url }}" alt="Imagen del producto"
+                                    width="120px" height="120px"
+                                    style="object-fit: cover; border-radius: 5px; border: 1px solid #ccc;" />
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>Este producto no tiene imágenes.</p>
+                    {% endif %}
+                    <div style="margin-top: 10px;">
+                        <a href="{% url 'separar_producto_agricultor' producto.id %}" class="btn" style="padding: 5px 10px; background-color: #2e7d32; color: white; border-radius: 5px; text-decoration: none;">Separar producto</a>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No hay productos disponibles por ahora.</p>
+            {% endfor %}
+            </div>
+        </section>
+
+        <section id="publicar" style="display: none;">
+            <h2>Publicar Productos</h2>
+            <div id="contenido-publicar">
+                <p>Cargando formulario...</p>
+            </div>
+        </section>
+
+        <section id="mios" style="display: none;">
+            <h2>Mis Productos Publicados</h2>
+            <div id="mis-productos-listado">
+                <p>Cargando productos...</p>
+            </div>
+        </section>
+    </div>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('menu');
+        menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    // SPA-style section switching
+    document.querySelectorAll('.menu-content a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = this.getAttribute('href').substring(1);
+            mostrarSeccion(target);
+        });
+    });
+
+    function mostrarSeccion(id) {
+        const secciones = document.querySelectorAll('section');
+        secciones.forEach(sec => sec.style.display = 'none');
+
+        const objetivo = document.getElementById(id);
+        if (objetivo) {
+            objetivo.style.display = 'block';
+
+            if (id === 'informacion') {
+                cargarInformacion();
+            }
+
+            if (id === 'publicar') {
+                cargarFormularioPublicar();
+            }
+
+            if (id === 'mios') {
+                cargarMisProductos();
+            }
+        }
+    }
+
+    function cargarInformacion() {
+        fetch('/marketplace/informacion3/')
+            .then(response => {
+                if (!response.ok) throw new Error('Error al cargar información');
+                return response.text();
+            })
+            .then(html => {
+                document.getElementById('contenido-informacion').innerHTML = html;
+            })
+            .catch(() => {
+                document.getElementById('contenido-informacion').innerHTML = "<p>Error al cargar la información.</p>";
+            });
+    }
+
+    function cargarFormularioPublicar() {
+        fetch('/marketplace/publicar_producto_form_A/')
+            .then(response => {
+                if (!response.ok) throw new Error('Error al cargar formulario');
+                return response.text();
+            })
+            .then(html => {
+                document.getElementById('contenido-publicar').innerHTML = html;
+            })
+            .catch(() => {
+                document.getElementById('contenido-publicar').innerHTML = "<p>Error al cargar el formulario.</p>";
+            });
+    }
+
+    // NUEVA función para cargar "Mis Productos"
+    function cargarMisProductos() {
+        fetch('/marketplace/mis_productos_agricultor/')
+            .then(response => {
+                if (!response.ok) throw new Error('Error al cargar mis productos');
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('mis-productos-listado').innerHTML = data.html;
+            })
+            .catch(() => {
+                document.getElementById('mis-productos-listado').innerHTML = "<p>Error al cargar mis productos.</p>";
+            });
+    }
+
+    // Eliminar producto con fetch y CSRF
+    document.addEventListener('submit', function(e) {
+        if (e.target.matches('.form-eliminar')) {
+            e.preventDefault();
+            if (!confirm("¿Eliminar este producto?")) return;
+
+            const form = e.target;
+            const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    cargarMisProductos(); // Recargar productos
+                } else {
+                    alert("Error al eliminar: " + data.error);
+                }
+            })
+            .catch(() => alert("Error al intentar eliminar el producto."));
+        }
+    });
+
+    // Cargar formulario de edición dinámicamente
+    document.addEventListener('click', function(e) {
+        if (e.target.matches('.btn-editar')) {
+            const productoId = e.target.dataset.id;
+            const divProducto = document.querySelector(`#producto-${productoId}`);
+
+            fetch(`/marketplace/form_editar_producto_agricultor/${productoId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    divProducto.innerHTML = data.html;
+                })
+                .catch(() => {
+                    divProducto.innerHTML = "<p>Error al cargar el formulario.</p>";
+                });
+        }
+    });
+
+    // Enviar edición con fetch y CSRF
+    document.addEventListener('submit', function(e) {
+        if (e.target.matches('.form-editar')) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+            const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken
+                },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    cargarMisProductos(); // Actualiza la vista
+                } else {
+                    alert("Error al guardar: " + (data.error || ''));
+                }
+            })
+            .catch(() => alert("Error al guardar los cambios."));
+        }
+    });
+</script>
+
+</body>
+</html>
