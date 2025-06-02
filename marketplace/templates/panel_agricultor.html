@@ -282,28 +282,31 @@
     </div>
 
 <script>
+    // Función para mostrar u ocultar el menú lateral (toggle entre display flex y none)
     function toggleMenu() {
         const menu = document.getElementById('menu');
         menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
     }
 
-    // SPA-style section switching
+    // Navegación estilo SPA: cambia secciones sin recargar la página
     document.querySelectorAll('.menu-content a').forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = this.getAttribute('href').substring(1);
-            mostrarSeccion(target);
+            e.preventDefault(); // Previene navegación estándar
+            const target = this.getAttribute('href').substring(1); // Obtiene ID de sección sin el #
+            mostrarSeccion(target); // Muestra la sección correspondiente
         });
     });
 
+    // Función que oculta todas las secciones y muestra solo la seleccionada
     function mostrarSeccion(id) {
         const secciones = document.querySelectorAll('section');
-        secciones.forEach(sec => sec.style.display = 'none');
+        secciones.forEach(sec => sec.style.display = 'none'); // Oculta todas las secciones
 
-        const objetivo = document.getElementById(id);
+        const objetivo = document.getElementById(id); // Sección a mostrar
         if (objetivo) {
-            objetivo.style.display = 'block';
+            objetivo.style.display = 'block'; // Muestra la sección correspondiente
 
+            // Carga contenido dinámico según la sección
             if (id === 'informacion') {
                 cargarInformacion();
             }
@@ -318,6 +321,7 @@
         }
     }
 
+    // Carga dinámica del contenido de la sección "informacion"
     function cargarInformacion() {
         fetch('/marketplace/informacion3/')
             .then(response => {
@@ -332,6 +336,7 @@
             });
     }
 
+    // Carga dinámica del formulario para publicar un nuevo producto
     function cargarFormularioPublicar() {
         fetch('/marketplace/publicar_producto_form_A/')
             .then(response => {
@@ -346,40 +351,40 @@
             });
     }
 
-    // NUEVA función para cargar "Mis Productos"
+    // Carga dinámica de los productos del agricultor (sección "Mis Productos")
     function cargarMisProductos() {
         fetch('/marketplace/mis_productos_agricultor/')
             .then(response => {
                 if (!response.ok) throw new Error('Error al cargar mis productos');
-                return response.json();
+                return response.json(); // Espera respuesta JSON
             })
             .then(data => {
-                document.getElementById('mis-productos-listado').innerHTML = data.html;
+                document.getElementById('mis-productos-listado').innerHTML = data.html; // Inserta HTML de productos
             })
             .catch(() => {
                 document.getElementById('mis-productos-listado').innerHTML = "<p>Error al cargar mis productos.</p>";
             });
     }
 
-    // Eliminar producto con fetch y CSRF
+    // Escucha eventos de formularios de eliminación de productos
     document.addEventListener('submit', function(e) {
         if (e.target.matches('.form-eliminar')) {
             e.preventDefault();
             if (!confirm("¿Eliminar este producto?")) return;
 
             const form = e.target;
-            const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+            const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value; // Token CSRF
 
             fetch(form.action, {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': csrfToken
+                    'X-CSRFToken': csrfToken // Agrega CSRF al encabezado
                 }
             })
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    cargarMisProductos(); // Recargar productos
+                    cargarMisProductos(); // Recarga productos si se eliminó con éxito
                 } else {
                     alert("Error al eliminar: " + data.error);
                 }
@@ -388,16 +393,16 @@
         }
     });
 
-    // Cargar formulario de edición dinámicamente
+    // Escucha clics en botones de edición de producto
     document.addEventListener('click', function(e) {
         if (e.target.matches('.btn-editar')) {
-            const productoId = e.target.dataset.id;
-            const divProducto = document.querySelector(`#producto-${productoId}`);
+            const productoId = e.target.dataset.id; // ID del producto a editar
+            const divProducto = document.querySelector(`#producto-${productoId}`); // Contenedor del producto
 
             fetch(`/marketplace/form_editar_producto_agricultor/${productoId}/`)
                 .then(response => response.json())
                 .then(data => {
-                    divProducto.innerHTML = data.html;
+                    divProducto.innerHTML = data.html; // Inserta formulario de edición
                 })
                 .catch(() => {
                     divProducto.innerHTML = "<p>Error al cargar el formulario.</p>";
@@ -405,14 +410,14 @@
         }
     });
 
-    // Enviar edición con fetch y CSRF
+    // Escucha el envío de formularios de edición de producto
     document.addEventListener('submit', function(e) {
         if (e.target.matches('.form-editar')) {
             e.preventDefault();
 
             const form = e.target;
-            const formData = new FormData(form);
-            const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+            const formData = new FormData(form); // Datos del formulario
+            const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value; // Token CSRF
 
             fetch(form.action, {
                 method: 'POST',
@@ -424,7 +429,7 @@
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    cargarMisProductos(); // Actualiza la vista
+                    cargarMisProductos(); // Actualiza la lista tras edición
                 } else {
                     alert("Error al guardar: " + (data.error || ''));
                 }
@@ -433,6 +438,7 @@
         }
     });
 </script>
+
 
 </body>
 </html>

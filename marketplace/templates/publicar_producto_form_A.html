@@ -1,16 +1,19 @@
 <section id="publicar">
+  <!-- Estilos internos para la sección de publicación de productos -->
   <style>
+    /* Estilos generales del contenedor de publicación */
     #publicar {
-      max-width: 700px;
-      margin: 40px auto;
-      padding: 30px 40px;
-      background: #f4faf7;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 100, 50, 0.15);
+      max-width: 700px; /* Ancho máximo del formulario */
+      margin: 40px auto; /* Centrado vertical con separación */
+      padding: 30px 40px; /* Espaciado interno */
+      background: #f4faf7; /* Color de fondo suave */
+      border-radius: 12px; /* Bordes redondeados */
+      box-shadow: 0 8px 20px rgba(0, 100, 50, 0.15); /* Sombra sutil */
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #1e4620;
+      color: #1e4620; /* Color de texto primario */
     }
 
+    /* Título de la sección */
     #publicar h2 {
       text-align: center;
       color: #2a7a2a;
@@ -20,19 +23,22 @@
       letter-spacing: 1px;
     }
 
+    /* Disposición del formulario en dos columnas */
     form {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px 30px;
+      gap: 20px 30px; /* Espacio entre filas y columnas */
     }
 
+    /* Elementos que deben ocupar todo el ancho del formulario */
     form label,
     form textarea,
     form select,
     form .full-width {
-      grid-column: 1 / -1;
+      grid-column: 1 / -1; /* Ocupa ambas columnas */
     }
 
+    /* Estilo de las etiquetas */
     label {
       font-weight: 600;
       margin-bottom: 6px;
@@ -40,6 +46,7 @@
       color: #2d703d;
     }
 
+    /* Estilos para campos de entrada de texto, número, área de texto y select */
     input[type="text"],
     input[type="number"],
     textarea,
@@ -56,6 +63,7 @@
       font-family: inherit;
     }
 
+    /* Efecto al enfocar campos del formulario */
     input[type="text"]:focus,
     input[type="number"]:focus,
     textarea:focus,
@@ -65,11 +73,13 @@
       background: #f0faf0;
     }
 
+    /* Permitir redimensionar el campo de texto */
     textarea {
       resize: vertical;
       min-height: 100px;
     }
 
+    /* Zona para subir archivos con arrastrar y soltar */
     .upload-area {
       grid-column: 1 / -1;
       border: 2px dashed #7cbf7c;
@@ -84,11 +94,13 @@
       position: relative;
     }
 
+    /* Efecto visual al pasar el mouse sobre el área de carga */
     .upload-area:hover {
       border-color: #3a9a3a;
       background-color: #f0faf0;
     }
 
+    /* El input file ocupa toda el área pero es invisible */
     .upload-area input[type="file"] {
       opacity: 0;
       position: absolute;
@@ -99,6 +111,7 @@
       cursor: pointer;
     }
 
+    /* Estilos para el botón de envío del formulario */
     button[type="submit"] {
       grid-column: 1 / -1;
       background-color: #2a7a2a;
@@ -114,34 +127,45 @@
       letter-spacing: 0.7px;
     }
 
+    /* Efecto hover para el botón de publicar */
     button[type="submit"]:hover {
       background-color: #1f5c1f;
       box-shadow: 0 7px 18px rgba(31, 92, 31, 0.9);
     }
   </style>
 
+  <!-- Título de la sección -->
   <h2>Publicar Productos (Agricultor)</h2>
-  <form id="form-publicar-producto" method="POST" enctype="multipart/form-data" action="{% url 'publicar_producto_agricultor' %}">
-    {% csrf_token %}
 
+  <!-- Formulario para publicar un producto -->
+  <form id="form-publicar-producto" method="POST" enctype="multipart/form-data" action="{% url 'publicar_producto_agricultor' %}">
+    {% csrf_token %} <!-- Token de seguridad CSRF de Django -->
+
+    <!-- Campo para el nombre del producto -->
     <label>Nombre:</label>
     <input type="text" name="nombre" required>
 
+    <!-- Campo para el precio del producto -->
     <label>Precio:</label>
     <input type="number" step="0.01" name="precio" required>
 
+    <!-- Unidad de medida del producto (ej. kilos, litros) -->
     <label>Unidad de medida:</label>
     <input type="text" name="unidad_medida" required>
 
+    <!-- Cantidad disponible del producto -->
     <label>Cantidad disponible:</label>
     <input type="number" name="cantidad_disponible" required>
 
+    <!-- Descripción del producto -->
     <label>Descripción:</label>
     <textarea name="descripcion" class="full-width" required></textarea>
 
+    <!-- Ubicación del producto o punto de entrega -->
     <label>Ubicación:</label>
     <textarea name="ubicacion" class="full-width" required></textarea>
 
+    <!-- Selector de categoría (rellenado dinámicamente desde Django) -->
     <label>Categoría:</label>
     <select name="categoria" class="full-width" required>
       {% for categoria in categorias %}
@@ -149,11 +173,13 @@
       {% endfor %}
     </select>
 
+    <!-- Área de carga de imágenes, permite arrastrar o hacer clic -->
     <div class="upload-area" tabindex="0">
       Haz clic o arrastra las imágenes aquí para subir<br>
       <input type="file" name="imagenes" multiple accept="image/*">
     </div>
 
+    <!-- Botón para enviar el formulario -->
     <button type="submit">Publicar</button>
   </form>
 </section>

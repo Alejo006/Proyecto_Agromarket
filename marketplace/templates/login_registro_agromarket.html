@@ -1,33 +1,33 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
+{% load static %} <!-- Carga de archivos estáticos en Django -->
+<!DOCTYPE html> <!-- Define que se usa HTML5 -->
+<html lang="es"> <!-- Documento en idioma español -->
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AgroMarket - Login y Registro</title>
+  <meta charset="UTF-8" /> <!-- Codificación de caracteres -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Diseño adaptable para móviles -->
+  <title>AgroMarket - Login y Registro</title> <!-- Título de la pestaña -->
 
-  <!-- Bootstrap -->
+  <!-- Inclusión de Bootstrap desde CDN para estilos rápidos -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Estilos personalizados -->
+  <!-- Estilos personalizados del login/registro -->
   <style>
     body {
-      background-color: #e6f4ea !important;
+      background-color: #e6f4ea !important; /* Fondo verde claro */
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: Arial, sans-serif; /* Fuente predeterminada */
     }
 
     main {
       width: 100%;
-      min-height: 100vh;
+      min-height: 100vh; /* Ocupa todo el alto de la pantalla */
       display: flex;
-      justify-content: center;
-      align-items: center;
+      justify-content: center; /* Centrado horizontal */
+      align-items: center; /* Centrado vertical */
     }
 
     .contenedor_todo {
       width: 100%;
-      max-width: 850px;
+      max-width: 850px; /* Ancho máximo */
       position: relative;
       overflow: hidden;
     }
@@ -36,14 +36,14 @@
       width: 100%;
       padding: 20px;
       display: flex;
-      justify-content: space-around;
-      background-color: rgba(0, 128, 0, 0.1);
+      justify-content: space-around; /* Espaciado entre cajas */
+      background-color: rgba(0, 128, 0, 0.1); /* Verde muy claro translúcido */
       border: 2px solid #0f5720;
       border-radius: 15px;
-      box-shadow: 0 0 10px rgba(15, 87, 32, 0.2);
-      color: #0f5720;
+      box-shadow: 0 0 10px rgba(15, 87, 32, 0.2); /* Sombra verde */
+      color: #0f5720; /* Texto verde oscuro */
       text-align: center;
-      flex-wrap: wrap;
+      flex-wrap: wrap; /* Ajuste en pantallas pequeñas */
     }
 
     .caja_trasera h3 {
@@ -67,14 +67,14 @@
     }
 
     .caja_trasera button:hover {
-      background-color: rgba(15, 87, 32, 0.1);
+      background-color: rgba(15, 87, 32, 0.1); /* Fondo al hacer hover */
     }
 
     .contenedor_login_y_registro {
-      width: 200%;
+      width: 200%; /* El doble para permitir transición entre formularios */
       display: flex;
-      transition: transform 0.6s ease;
-      transform: translateX(0%);
+      transition: transform 0.6s ease; /* Transición suave */
+      transform: translateX(0%); /* Por defecto muestra login */
       position: relative;
     }
 
@@ -84,7 +84,7 @@
       background: white;
       padding: 40px;
       border-radius: 20px;
-      box-shadow: 0 0 10px rgba(0, 128, 0, 0.2);
+      box-shadow: 0 0 10px rgba(0, 128, 0, 0.2); /* Sombra verde */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -126,7 +126,7 @@
     }
 
     button:hover {
-      background-color: #0c4518;
+      background-color: #0c4518; /* Color más oscuro al pasar el mouse */
     }
 
     .alert-danger {
@@ -140,7 +140,7 @@
 
 <main>
   <div class="contenedor_todo">
-    <!-- Caja trasera -->
+    <!-- Caja trasera: mensajes y botones para alternar entre login y registro -->
     <div class="caja_trasera">
       <div class="caja_trasera_login">
         <h3>¿Ya tienes una cuenta?</h3>
@@ -154,11 +154,12 @@
       </div>
     </div>
 
-    <!-- Formularios -->
+    <!-- Contenedor para los formularios de login y registro -->
     <div class="contenedor_login_y_registro" id="contenedor_forms">
-      <!-- LOGIN -->
+
+      <!-- FORMULARIO DE LOGIN -->
       <form id="form_login" class="formulario_login" action="{% url 'login_usuario' %}" method="POST">
-        {% csrf_token %}
+        {% csrf_token %} <!-- Protección CSRF de Django -->
         <h2>Iniciar Sesión</h2>
         <input type="email" name="correo" placeholder="Correo electrónico" required />
         <input type="password" name="contraseña" placeholder="Contraseña" required />
@@ -166,14 +167,14 @@
 
         {% if messages %}
           {% for message in messages %}
-            <p class="alert alert-danger mt-2">{{ message }}</p>
+            <p class="alert alert-danger mt-2">{{ message }}</p> <!-- Muestra mensajes de error -->
           {% endfor %}
         {% endif %}
       </form>
 
-      <!-- REGISTRO -->
+      <!-- FORMULARIO DE REGISTRO -->
       <form id="form_regis" class="formulario_regis" action="{% url 'registro_usuario' %}" method="POST">
-        {% csrf_token %}
+        {% csrf_token %} <!-- Protección CSRF de Django -->
         <h2>Registro</h2>
         <input type="text" name="nombre" placeholder="Nombre completo" required />
         <input type="text" name="documento" placeholder="Documento" required />
@@ -191,27 +192,30 @@
 
         {% if messages %}
           {% for message in messages %}
-            <p class="alert alert-danger mt-2">{{ message }}</p>
+            <p class="alert alert-danger mt-2">{{ message }}</p> <!-- Muestra mensajes de error -->
           {% endfor %}
         {% endif %}
       </form>
+
     </div>
   </div>
 </main>
 
-<!-- Bootstrap JS -->
+<!-- JS de Bootstrap para componentes interactivos -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
-<!-- Script para transición -->
+<!-- Script que alterna visualmente entre login y registro -->
 <script>
   const btnLogin = document.getElementById("btn_login");
   const btnRegistro = document.getElementById("btn_registro");
   const contenedorForms = document.getElementById("contenedor_forms");
 
+  // Mueve el contenedor para mostrar el formulario de registro
   btnRegistro.addEventListener("click", () => {
     contenedorForms.style.transform = "translateX(-50%)";
   });
 
+  // Mueve el contenedor para mostrar el formulario de login
   btnLogin.addEventListener("click", () => {
     contenedorForms.style.transform = "translateX(0%)";
   });

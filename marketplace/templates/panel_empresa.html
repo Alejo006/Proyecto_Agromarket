@@ -281,89 +281,96 @@
     </div>
 
 <script>
+    // Función para alternar la visibilidad del menú lateral
     function toggleMenu() {
         const menu = document.getElementById('menu');
         menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
     }
 
-    // SPA-style section switching
+    // Configura los enlaces del menú para cambiar entre secciones estilo SPA
     document.querySelectorAll('.menu-content a').forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = this.getAttribute('href').substring(1);
-            mostrarSeccion(target);
+            e.preventDefault(); // Previene el comportamiento predeterminado del enlace
+            const target = this.getAttribute('href').substring(1); // Obtiene el ID de la sección sin el '#'
+            mostrarSeccion(target); // Muestra la sección correspondiente
         });
     });
 
+    // Función para mostrar una sección específica y ocultar las demás
     function mostrarSeccion(id) {
         const secciones = document.querySelectorAll('section');
-        secciones.forEach(sec => sec.style.display = 'none');
+        secciones.forEach(sec => sec.style.display = 'none'); // Oculta todas las secciones
 
-        const objetivo = document.getElementById(id);
+        const objetivo = document.getElementById(id); // Obtiene la sección objetivo
         if (objetivo) {
-            objetivo.style.display = 'block';
+            objetivo.style.display = 'block'; // Muestra la sección deseada
 
+            // Carga contenido dinámicamente si la sección es "informacion"
             if (id === 'informacion') {
                 cargarInformacion();
             }
 
+            // Carga el formulario de publicación si la sección es "publicar"
             if (id === 'publicar') {
                 cargarFormularioPublicar();
             }
 
+            // Carga los productos del usuario si la sección es "mios"
             if (id === 'mios') {
                 cargarMisProductos();
             }
         }
     }
 
+    // Función para cargar la información del agro dinámicamente
     function cargarInformacion() {
         fetch('/marketplace/informacion2/')
             .then(response => {
                 if (!response.ok) throw new Error('Error al cargar información');
-                return response.text();
+                return response.text(); // Convierte la respuesta en texto HTML
             })
             .then(html => {
-                document.getElementById('contenido-informacion').innerHTML = html;
+                document.getElementById('contenido-informacion').innerHTML = html; // Inserta el HTML en el contenedor
             })
             .catch(() => {
                 document.getElementById('contenido-informacion').innerHTML = "<p>Error al cargar la información.</p>";
             });
     }
 
+    // Función para cargar el formulario de publicación de productos
     function cargarFormularioPublicar() {
         fetch('/marketplace/publicar_producto_form/')
             .then(response => {
                 if (!response.ok) throw new Error('Error al cargar formulario');
-                return response.text();
+                return response.text(); // Convierte la respuesta en HTML
             })
             .then(html => {
-                document.getElementById('contenido-publicar').innerHTML = html;
+                document.getElementById('contenido-publicar').innerHTML = html; // Inserta el formulario en la sección
             })
             .catch(() => {
                 document.getElementById('contenido-publicar').innerHTML = "<p>Error al cargar el formulario.</p>";
             });
     }
 
-    // NUEVA función para cargar "Mis Productos"
+    // Función para cargar dinámicamente los productos del usuario (mis productos)
     function cargarMisProductos() {
         fetch('/marketplace/mis_productos/')
             .then(response => {
                 if (!response.ok) throw new Error('Error al cargar mis productos');
-                return response.json();
+                return response.json(); // Convierte la respuesta en JSON
             })
             .then(data => {
-                document.getElementById('mis-productos-listado').innerHTML = data.html;
+                document.getElementById('mis-productos-listado').innerHTML = data.html; // Inserta el HTML renderizado
             })
             .catch(() => {
                 document.getElementById('mis-productos-listado').innerHTML = "<p>Error al cargar mis productos.</p>";
             });
     }
 
-    // Eliminar producto con fetch y CSRF
+    // Maneja la eliminación de productos con fetch y token CSRF
     document.addEventListener('submit', function(e) {
         if (e.target.matches('.form-eliminar')) {
-            e.preventDefault();
+            e.preventDefault(); // Evita el envío tradicional del formulario
             if (!confirm("¿Eliminar este producto?")) return;
 
             const form = e.target;
@@ -378,7 +385,7 @@
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    cargarMisProductos(); // Recargar productos
+                    cargarMisProductos(); // Recarga la lista de productos si fue exitoso
                 } else {
                     alert("Error al eliminar: " + data.error);
                 }
@@ -387,7 +394,7 @@
         }
     });
 
-    // Cargar formulario de edición dinámicamente
+    // Carga el formulario de edición del producto dinámicamente al hacer clic en "Editar"
     document.addEventListener('click', function(e) {
         if (e.target.matches('.btn-editar')) {
             const productoId = e.target.dataset.id;
@@ -396,7 +403,7 @@
             fetch(`/marketplace/form_editar_producto/${productoId}/`)
                 .then(response => response.json())
                 .then(data => {
-                    divProducto.innerHTML = data.html;
+                    divProducto.innerHTML = data.html; // Reemplaza el contenido con el formulario de edición
                 })
                 .catch(() => {
                     divProducto.innerHTML = "<p>Error al cargar el formulario.</p>";
@@ -404,13 +411,13 @@
         }
     });
 
-    // Enviar edición con fetch y CSRF
+    // Envía el formulario de edición con fetch y protección CSRF
     document.addEventListener('submit', function(e) {
         if (e.target.matches('.form-editar')) {
-            e.preventDefault();
+            e.preventDefault(); // Previene el comportamiento normal del formulario
 
             const form = e.target;
-            const formData = new FormData(form);
+            const formData = new FormData(form); // Extrae los datos del formulario
             const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
 
             fetch(form.action, {
@@ -423,7 +430,7 @@
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    cargarMisProductos(); // Actualiza la vista
+                    cargarMisProductos(); // Refresca la lista si se guardó correctamente
                 } else {
                     alert("Error al guardar: " + (data.error || ''));
                 }
@@ -432,6 +439,7 @@
         }
     });
 </script>
+
 
 </body>
 </html>
