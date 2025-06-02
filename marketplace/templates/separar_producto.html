@@ -1,78 +1,93 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html> <!-- Define el tipo de documento como HTML5 -->
+<html lang="es"> <!-- Establece el idioma principal de la página como español -->
 <head>
-    <meta charset="UTF-8">
-    <title>Información del Vendedor - {{ producto.nombre }}</title>
+    <meta charset="UTF-8"> <!-- Codificación de caracteres en UTF-8 -->
+    <title>Información del Vendedor - {{ producto.nombre }}</title> <!-- Título dinámico con el nombre del producto -->
+
     <style>
+        /* Estilos generales para el cuerpo de la página */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #e9f5ee;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente legible y moderna */
+            background: #e9f5ee; /* Color de fondo verde claro */
             margin: 0;
-            padding: 40px;
-            display: flex;
-            justify-content: center;
+            padding: 40px; /* Espaciado interno alrededor del contenido */
+            display: flex; /* Uso de Flexbox para centrar el contenido */
+            justify-content: center; /* Centra horizontalmente */
         }
 
+        /* Contenedor principal de la tarjeta con los datos del vendedor */
         .container {
-            background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            padding: 30px 40px;
-            max-width: 600px;
-            width: 100%;
+            background-color: #ffffff; /* Fondo blanco */
+            border-radius: 15px; /* Bordes redondeados */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+            padding: 30px 40px; /* Espaciado interno */
+            max-width: 600px; /* Ancho máximo de la tarjeta */
+            width: 100%; /* Ocupa todo el ancho disponible */
         }
 
+        /* Estilo del título */
         h2 {
-            color: #2e7d32;
-            margin-bottom: 15px;
+            color: #2e7d32; /* Verde oscuro */
+            margin-bottom: 15px; /* Espacio debajo del título */
         }
 
+        /* Párrafo introductorio */
         .intro {
-            font-size: 1.1em;
-            color: #555;
+            font-size: 1.1em; /* Tamaño ligeramente mayor al normal */
+            color: #555; /* Gris medio */
             margin-bottom: 25px;
         }
 
+        /* Estilo de los párrafos que contienen la información del vendedor */
         .info p {
-            margin: 10px 0;
+            margin: 10px 0; /* Espaciado vertical entre líneas */
             font-size: 1em;
         }
 
+        /* Estilo para los textos destacados en negrita dentro de los párrafos */
         .info strong {
-            color: #333;
+            color: #333; /* Gris oscuro */
         }
 
+        /* Botón de volver al listado */
         .btn-volver {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 20px;
-            background-color: #2e7d32;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
+            display: inline-block; /* Permite aplicar padding y margen */
+            margin-top: 30px; /* Separación superior respecto al contenido anterior */
+            padding: 12px 20px; /* Espaciado interno del botón */
+            background-color: #2e7d32; /* Color de fondo verde */
+            color: white; /* Color del texto */
+            text-decoration: none; /* Elimina subrayado del enlace */
+            border-radius: 8px; /* Bordes redondeados */
+            transition: background-color 0.3s ease; /* Transición suave al pasar el mouse */
         }
 
+        /* Cambio de color al pasar el mouse sobre el botón */
         .btn-volver:hover {
-            background-color: #256a28;
+            background-color: #256a28; /* Verde más oscuro */
         }
     </style>
 </head>
+
 <body>
+    <!-- Contenedor visual con el contenido principal -->
     <div class="container">
-        <h2>¿Te interesa este producto?</h2>
+        <h2>¿Te interesa este producto?</h2> <!-- Título llamativo -->
+
+        <!-- Párrafo de introducción con el nombre del producto en negrita -->
         <p class="intro">
             ¡Perfecto! Aquí tienes los datos de contacto del vendedor para que puedas comunicarte y coordinar la compra de <strong>{{ producto.nombre }}</strong>. 
         </p>
 
+        <!-- Información de contacto del vendedor -->
         <div class="info">
-            <p><strong>👤 Nombre:</strong> {{ vendedor.nombre }}</p>
-            <p><strong>📧 Correo electrónico:</strong> {{ vendedor.correo }}</p>
-            <p><strong>📞 Teléfono:</strong> {{ vendedor.telefono }}</p>
-            <p><strong>📍 Dirección:</strong> {{ vendedor.direccion }}</p>
-            <p><strong>👥 Tipo de usuario:</strong> {{ vendedor.tipo_usuario }}</p>
+            <p><strong>👤 Nombre:</strong> {{ vendedor.nombre }}</p> <!-- Nombre del vendedor -->
+            <p><strong>📧 Correo electrónico:</strong> {{ vendedor.correo }}</p> <!-- Correo electrónico -->
+            <p><strong>📞 Teléfono:</strong> {{ vendedor.telefono }}</p> <!-- Teléfono de contacto -->
+            <p><strong>📍 Dirección:</strong> {{ vendedor.direccion }}</p> <!-- Dirección física -->
+            <p><strong>👥 Tipo de usuario:</strong> {{ vendedor.tipo_usuario }}</p> <!-- Rol del usuario en el sistema -->
         </div>
 
+        <!-- Botón para volver al panel del consumidor -->
         <a href="{% url 'panel_consumidor' %}" class="btn-volver">← Volver al listado</a>
     </div>
 </body>

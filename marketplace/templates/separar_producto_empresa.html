@@ -1,78 +1,93 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html> <!-- Tipo de documento HTML5 -->
+<html lang="es"> <!-- Indica que el contenido está en español -->
 <head>
-    <meta charset="UTF-8">
-    <title>Información del Vendedor - {{ producto.nombre }}</title>
+    <meta charset="UTF-8"> <!-- Codificación de caracteres UTF-8 para compatibilidad -->
+    <title>Información del Vendedor - {{ producto.nombre }}</title> <!-- Título dinámico con el nombre del producto -->
+
     <style>
+        /* Estilo general del cuerpo de la página */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #e9f5ee;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente legible y moderna */
+            background: #e9f5ee; /* Fondo verde claro suave */
             margin: 0;
-            padding: 40px;
+            padding: 40px; /* Separación desde los bordes */
             display: flex;
-            justify-content: center;
+            justify-content: center; /* Centra horizontalmente el contenido */
         }
 
+        /* Contenedor principal con estilos de tarjeta */
         .container {
-            background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            padding: 30px 40px;
-            max-width: 600px;
-            width: 100%;
+            background-color: #ffffff; /* Fondo blanco */
+            border-radius: 15px; /* Bordes redondeados */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+            padding: 30px 40px; /* Espaciado interno */
+            max-width: 600px; /* Ancho máximo */
+            width: 100%; /* Ocupa el ancho disponible */
         }
 
+        /* Estilo para el título principal */
         h2 {
-            color: #2e7d32;
-            margin-bottom: 15px;
+            color: #2e7d32; /* Verde oscuro */
+            margin-bottom: 15px; /* Espacio debajo del título */
         }
 
+        /* Estilo para el párrafo introductorio */
         .intro {
             font-size: 1.1em;
-            color: #555;
+            color: #555; /* Gris medio */
             margin-bottom: 25px;
         }
 
+        /* Estilo para cada párrafo dentro de la sección de información */
         .info p {
             margin: 10px 0;
             font-size: 1em;
         }
 
+        /* Estilo para las etiquetas destacadas dentro de cada línea de información */
         .info strong {
-            color: #333;
+            color: #333; /* Gris oscuro */
         }
 
+        /* Estilo del botón para volver */
         .btn-volver {
-            display: inline-block;
+            display: inline-block; /* Permite aplicar padding y margen */
             margin-top: 30px;
             padding: 12px 20px;
-            background-color: #2e7d32;
+            background-color: #2e7d32; /* Mismo verde del título */
             color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
+            text-decoration: none; /* Quita subrayado */
+            border-radius: 8px; /* Bordes redondeados */
+            transition: background-color 0.3s ease; /* Efecto suave al pasar el cursor */
         }
 
+        /* Cambio de color al pasar el cursor sobre el botón */
         .btn-volver:hover {
-            background-color: #256a28;
+            background-color: #256a28; /* Verde un poco más oscuro */
         }
     </style>
 </head>
+
 <body>
+    <!-- Contenedor de toda la información -->
     <div class="container">
         <h2>¿Te interesa este producto?</h2>
+        
+        <!-- Párrafo introductorio con el nombre del producto destacado -->
         <p class="intro">
             ¡Perfecto! Aquí tienes los datos de contacto del vendedor para que puedas comunicarte y coordinar la compra de <strong>{{ producto.nombre }}</strong>. 
         </p>
 
+        <!-- Sección con la información detallada del vendedor -->
         <div class="info">
-            <p><strong>👤 Nombre:</strong> {{ vendedor.nombre }}</p>
-            <p><strong>📧 Correo electrónico:</strong> {{ vendedor.correo }}</p>
-            <p><strong>📞 Teléfono:</strong> {{ vendedor.telefono }}</p>
-            <p><strong>📍 Dirección:</strong> {{ vendedor.direccion }}</p>
-            <p><strong>👥 Tipo de usuario:</strong> {{ vendedor.tipo_usuario }}</p>
+            <p><strong>👤 Nombre:</strong> {{ vendedor.nombre }}</p> <!-- Nombre del vendedor -->
+            <p><strong>📧 Correo electrónico:</strong> {{ vendedor.correo }}</p> <!-- Email -->
+            <p><strong>📞 Teléfono:</strong> {{ vendedor.telefono }}</p> <!-- Teléfono -->
+            <p><strong>📍 Dirección:</strong> {{ vendedor.direccion }}</p> <!-- Dirección física -->
+            <p><strong>👥 Tipo de usuario:</strong> {{ vendedor.tipo_usuario }}</p> <!-- Rol del usuario -->
         </div>
 
-    <a href="{% url 'panel_empresa' %}" class="btn-volver">Volver al listado</a>
+        <!-- Botón para volver al panel de empresa -->
+        <a href="{% url 'panel_empresa' %}" class="btn-volver">Volver al listado</a>
 </body>
 </html>
