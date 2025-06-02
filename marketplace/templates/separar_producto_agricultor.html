@@ -1,70 +1,84 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es"> <!-- Documento HTML configurado para idioma español -->
 <head>
-    <meta charset="UTF-8">
-    <title>Información del Vendedor - {{ producto.nombre }}</title>
+    <meta charset="UTF-8"> <!-- Codificación de caracteres UTF-8 -->
+    <title>Información del Vendedor - {{ producto.nombre }}</title> <!-- Título dinámico con el nombre del producto -->
+
     <style>
+        /* Estilos generales para el cuerpo del documento */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #e9f5ee;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Tipografía legible */
+            background: #e9f5ee; /* Color de fondo suave */
             margin: 0;
             padding: 40px;
             display: flex;
-            justify-content: center;
+            justify-content: center; /* Centra el contenido en la pantalla */
         }
 
+        /* Contenedor principal del contenido */
         .container {
-            background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff; /* Fondo blanco */
+            border-radius: 15px; /* Bordes redondeados */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra sutil */
             padding: 30px 40px;
             max-width: 600px;
             width: 100%;
         }
 
+        /* Estilo para el título principal */
         h2 {
-            color: #2e7d32;
+            color: #2e7d32; /* Verde oscuro */
             margin-bottom: 15px;
         }
 
+        /* Estilo para el texto introductorio */
         .intro {
             font-size: 1.1em;
-            color: #555;
+            color: #555; /* Gris medio */
             margin-bottom: 25px;
         }
 
+        /* Estilo para los párrafos de información del vendedor */
         .info p {
             margin: 10px 0;
             font-size: 1em;
         }
 
+        /* Estilo para los títulos de cada campo */
         .info strong {
             color: #333;
         }
 
+        /* Botón de volver al listado */
         .btn-volver {
             display: inline-block;
             margin-top: 30px;
             padding: 12px 20px;
-            background-color: #2e7d32;
+            background-color: #2e7d32; /* Mismo verde que el título */
             color: white;
             text-decoration: none;
             border-radius: 8px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease; /* Transición suave al pasar el mouse */
         }
 
+        /* Efecto hover para el botón */
         .btn-volver:hover {
             background-color: #256a28;
         }
     </style>
 </head>
+
 <body>
+    <!-- Contenedor principal del contenido mostrado al usuario -->
     <div class="container">
         <h2>¿Te interesa este producto?</h2>
+        
+        <!-- Texto introductorio con el nombre del producto en negrita -->
         <p class="intro">
             ¡Perfecto! Aquí tienes los datos de contacto del vendedor para que puedas comunicarte y coordinar la compra de <strong>{{ producto.nombre }}</strong>. 
         </p>
 
+        <!-- Información detallada del vendedor -->
         <div class="info">
             <p><strong>👤 Nombre:</strong> {{ vendedor.nombre }}</p>
             <p><strong>📧 Correo electrónico:</strong> {{ vendedor.correo }}</p>
@@ -73,6 +87,7 @@
             <p><strong>👥 Tipo de usuario:</strong> {{ vendedor.tipo_usuario }}</p>
         </div>
 
-    <a href="{% url 'panel_agricultor' %}" class="btn-volver">Volver al listado</a>
+        <!-- Botón que permite volver al panel del agricultor -->
+        <a href="{% url 'panel_agricultor' %}" class="btn-volver">Volver al listado</a>
 </body>
 </html>
