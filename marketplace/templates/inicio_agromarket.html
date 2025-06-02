@@ -1,36 +1,40 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html> <!-- Define el tipo de documento como HTML5 -->
+<html lang="es"> <!-- El idioma principal del documento es español -->
 <head>
-    <title>AgroMarket</title> <!-- Cambié el título a algo más agrícola -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+    <title>AgroMarket</title> <!-- Título de la pestaña del navegador -->
+    <meta charset="UTF-8"> <!-- Codificación de caracteres -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Diseño adaptable para dispositivos móviles -->
+    {% load static %} <!-- Etiqueta de Django para cargar archivos estáticos -->
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}"> <!-- Vincula una hoja de estilo externa -->
 </head>
+
 <style>
+    /* Estilos generales del cuerpo de la página */
     body {
-        font-family: Arial, sans-serif;
+        font-family: Arial, sans-serif; /* Fuente del texto */
         margin: 0;
         padding: 0;
-        background-color: #e6f2e6; /* Fondo verde clarito */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+        background-color: #e6f2e6; /* Fondo verde claro */
+        display: flex; /* Centra contenido */
+        justify-content: center; /* Centra horizontalmente */
+        align-items: center; /* Centra verticalmente */
+        height: 100vh; /* Ocupa el alto total de la ventana */
         text-align: center;
     }
 
+    /* Contenedor principal de contenido */
     .container {
-        background-color: #ffffff;
-        padding: 2rem;
-        border-radius: 15px;
+        background-color: #ffffff; /* Fondo blanco */
+        padding: 2rem; /* Espaciado interno */
+        border-radius: 15px; /* Bordes redondeados */
         box-shadow: 0 4px 8px rgba(0, 100, 0, 0.2); /* Sombra verde */
-        max-width: 500px;
-        width: 100%;
+        max-width: 500px; /* Ancho máximo */
+        width: 100%; /* Ocupa todo el ancho disponible */
         position: relative;
         overflow: hidden;
     }
 
+    /* Barra decorativa superior con degradado verde */
     .container:before {
         content: "";
         position: absolute;
@@ -38,9 +42,10 @@
         left: 0;
         width: 100%;
         height: 6px;
-        background: linear-gradient(to right, #4CAF50, #8BC34A, #388E3C); /* Verde degradado */
+        background: linear-gradient(to right, #4CAF50, #8BC34A, #388E3C);
     }
 
+    /* Barra decorativa inferior con degradado verde invertido */
     .container:after {
         content: "";
         position: absolute;
@@ -48,23 +53,26 @@
         left: 0;
         width: 100%;
         height: 6px;
-        background: linear-gradient(to right, #388E3C, #8BC34A, #4CAF50); /* Verde degradado invertido */
+        background: linear-gradient(to right, #388E3C, #8BC34A, #4CAF50);
     }
 
+    /* Estilo del encabezado principal */
     h1 {
-        color: #2e7d32; /* Verde más fuerte */
+        color: #2e7d32; /* Verde oscuro */
         margin-bottom: 1rem;
     }
 
+    /* Estilo del párrafo */
     p {
-        color: #4d4d4d;
+        color: #4d4d4d; /* Gris oscuro */
         font-size: 1rem;
         margin-bottom: 2rem;
     }
 
+    /* Estilos del botón */
     .btn {
         display: inline-block;
-        background-color: #4CAF50; /* Verde botón */
+        background-color: #4CAF50; /* Verde del botón */
         color: white;
         padding: 0.8rem 2rem;
         font-size: 1.1rem;
@@ -75,16 +83,18 @@
         transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
+    /* Efecto al pasar el mouse sobre el botón */
     .btn:hover {
-        background-color: #388E3C; /* Verde más oscuro al pasar */
-        transform: scale(1.1);
+        background-color: #388E3C; /* Verde más oscuro */
+        transform: scale(1.1); /* Aumenta el tamaño ligeramente */
     }
 
+    /* Estilo de un contenedor alternativo para imagen en desarrollo */
     .image-placeholder {
         margin-top: 2rem;
         height: 200px;
         background-color: #d0e6d0;
-        border: 2px dashed #a5d6a7;
+        border: 2px dashed #a5d6a7; /* Borde punteado */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -93,23 +103,33 @@
         font-size: 1rem;
     }
 
+    /* Contenedor centrado para la imagen */
     .imagen {
         display: flex;
         justify-content: center;
         margin-top: 2rem;
     }
 
+    /* Estilo de la imagen */
     .imagen img {
-        max-width: 100%;
+        max-width: 100%; /* Escala la imagen al ancho del contenedor */
         border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 100, 0, 0.2);
+        box-shadow: 0 4px 6px rgba(0, 100, 0, 0.2); /* Sombra suave */
     }
 </style>
+
 <body>
     <div class="container">
+        <!-- Título principal del sitio -->
         <h1>Bienvenidos a AgroMarket 🌿</h1>
+        
+        <!-- Descripción o eslogan -->
         <p>Conectando agricultores y consumidores de forma directa.</p>
+        
+        <!-- Botón que redirige a la vista de login/registro -->
         <a href="{% url 'login_registro_agromarket' %}" class="btn">Entrar al sistema</a>
+        
+        <!-- Imagen representativa del sitio -->
         <div class="imagen">
             <img src="{% static 'img/agromarket.png' %}" alt="Presentación AgroMarket">
         </div>

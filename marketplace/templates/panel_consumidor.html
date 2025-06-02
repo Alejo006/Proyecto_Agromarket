@@ -87,43 +87,52 @@
     </style>
 </head>
 <body>
+    <!-- Barra lateral de navegación -->
     <div class="sidebar">
         <h2>AgroMarket</h2>
+
+        <!-- Botón para alternar visibilidad del menú (modo móvil/responsive) -->
         <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
+
+        <!-- Menú con enlaces a las diferentes secciones -->
         <div class="menu-content" id="menu">
             <a href="#informacion">Información</a>
             <a href="#empresas">Empresas</a>
             <a href="#agricultores">Agricultores</a>
         </div>
+
+        <!-- Botón para cerrar sesión -->
         <div>
-        <a href="{% url 'login_registro_agromarket' %}" class="cerrar-sesion-btn">Cerrar sesión</a>
+            <a href="{% url 'login_registro_agromarket' %}" class="cerrar-sesion-btn">Cerrar sesión</a>
 
-        <style>
-        .cerrar-sesion-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 25px;
-            background-color: #dc3545;
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
+            <!-- Estilos del botón de cerrar sesión -->
+            <style>
+            .cerrar-sesion-btn {
+                display: inline-block;
+                margin-top: 20px;
+                padding: 10px 25px;
+                background-color: #dc3545;
+                color: white;
+                text-decoration: none;
+                border-radius: 30px;
+                font-weight: 600;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                transition: background-color 0.3s ease, transform 0.2s ease;
+            }
 
-        .cerrar-sesion-btn:hover {
-            background-color: #c82333;
-            transform: scale(1.05);
-        }
-        </style>
-
+            .cerrar-sesion-btn:hover {
+                background-color: #c82333;
+                transform: scale(1.05);
+            }
+            </style>
         </div>
     </div>
 
+    <!-- Contenido principal -->
     <div class="content">
         <h1>Bienvenido a <strong>AgroMarket</strong>, tu marketplace de confianza</h1>
 
+        <!-- Sección de bienvenida -->
         <section id="bienvenida-consumidor">
             <h2>¡Nos alegra tenerte aquí, Comprador!</h2>
             <p>Explora una gran variedad de productos frescos y de calidad directamente del productor. Disfruta de precios justos y apoya el trabajo local con cada compra.</p>
@@ -131,7 +140,7 @@
             <img src="{% static 'img/consumidor.jpg' %}" alt="Bienvenida consumidor" style="max-width: 100%; border-radius: 10px; margin-top: 20px;">
         </section>
 
-
+        <!-- Sección de información (contenido cargado dinámicamente) -->
         <section id="informacion" style="display: none;">
             <h2>Información del Agro</h2>
             <div id="contenido-informacion">
@@ -139,6 +148,7 @@
             </div>
         </section>
 
+        <!-- Sección con productos ofrecidos por empresas -->
         <section id="empresas" style="display: none;">
             <h2>Productos de Empresas</h2>
             <div style="display: flex; flex-wrap: wrap; gap: 20px;">
@@ -179,6 +189,7 @@
             </div>
         </section>
 
+        <!-- Sección con productos ofrecidos por agricultores -->
         <section id="agricultores" style="display: none;">
             <h2>Productos de Agricultores</h2>
             <div style="display: flex; flex-wrap: wrap; gap: 20px;">
@@ -214,13 +225,15 @@
         </section>
     </div>
 
+    <!-- Script para navegación y carga dinámica de información -->
     <script>
+        // Función para alternar visibilidad del menú lateral (modo responsive)
         function toggleMenu() {
             const menu = document.getElementById('menu');
             menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        // SPA-style section switching
+        // Detecta clic en enlaces del menú y cambia la sección visible (SPA-style)
         document.querySelectorAll('.menu-content a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -229,6 +242,7 @@
             });
         });
 
+        // Muestra solo la sección correspondiente y oculta las demás
         function mostrarSeccion(id) {
             const secciones = document.querySelectorAll('section');
             secciones.forEach(sec => sec.style.display = 'none');
@@ -242,6 +256,7 @@
             }
         }
 
+        // Carga contenido HTML dinámico para la sección de información
         function cargarInformacion() {
             fetch('/marketplace/informacion/') // Ajusta la ruta según tu estructura
                 .then(response => response.text())
